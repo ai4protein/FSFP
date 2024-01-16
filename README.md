@@ -16,7 +16,7 @@ transformers 4.29.2
 ```
 
 ## Config file
-The config file `fsfp/config.json` defines the path of model checkpoints, input and output.
+The config file `fsfp/config.json` defines the paths of model checkpoints, input and output.
 
 ## Data preprocessing
 The datasets of ProteinGym should be put under `data/substitutions/`. Run `python preprocess.py -s` to preprocess the raw datasets and pack them to `data/merged.pkl`.

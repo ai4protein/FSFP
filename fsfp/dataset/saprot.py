@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec  5 15:38:19 2023
-
-@author: User
-"""
-
 import torch
 import pandas as pd
 from fsfp import config

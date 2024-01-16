@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  4 11:32:02 2023
-
-@author: User
-"""
-
 import argparse
 import torch
 from fsfp import config
@@ -62,7 +55,7 @@ def parse_args():
                         help='number of iterations for inner loop')
     parser.add_argument('--patience', '-pt', type=int, default=15,
                         help='number of epochs to wait until the validation score improves')
-    parser.add_argument('--n_sites', '-ns', nargs='*', type=int, default=[1],
+    parser.add_argument('--n_sites', '-ns', nargs='+', type=int, default=[1],
                         help='possible numbers of mutation sites in the training data. \
                               setting to 0 means no constraint')
     parser.add_argument('--negative_train', '-neg', action='store_true',

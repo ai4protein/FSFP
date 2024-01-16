@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug  7 16:07:22 2023
-
-@author: User
-"""
-
 import torch
 import random
 import numpy as np

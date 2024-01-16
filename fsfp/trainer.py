@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Aug  6 20:51:26 2023
-
-@author: Zhou
-"""
-
 import torch
 import torch.optim as optim
 import torch.nn.functional as F

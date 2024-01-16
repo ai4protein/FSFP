@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  4 23:59:47 2023
-
-@author: Zhou
-"""
-
 import argparse
 from fsfp import config
 from fsfp.utils.data import merge_files

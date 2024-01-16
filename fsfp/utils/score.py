@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 24 20:37:29 2023
-
-@author: User
-"""
-
 import torch
 import pandas as pd
 import torch.nn.functional as F
@@ -16,7 +9,7 @@ from itertools import chain
 from .data import make_dir, split_data
 
 metrics = ['spearmanr', 'ndcg', 'topk_pr']
-group_names = ['single_local', 'single_cross', 'single_rest', '2_sites', '3_sites', '4_sites',
+group_names = ['single_local', 'single_cross', 'single_rest',
                'multi_combined', 'multi_cross', 'multi_rest', 'all_rest']
 
 def pairwise_ranking_loss(input1, input2, label1, label2, fn='hinge', margin=1.0):
@@ -68,8 +61,6 @@ def group_scores(train_df, pred_df, test_df, k=30):
                 groups['single_cross'].append(mutant)
         else:
             groups['multi_rest'].append(mutant)
-            if n_sites <= 4:
-                groups[f'{n_sites}_sites'].append(mutant)
             sites = set(mutant.split(':'))
             if sites.issubset(train_sites):
                 groups['multi_combined'].append(mutant)
@@ -107,22 +98,3 @@ def summarize_scores(score_groups, save_path=None):
         torch.save(summary, save_path)
     return summary
 
-def get_best_augment(proteins, raw_dir, train_size, n_sites, candidates, metric='spearmanr'):
-    results = {}
-    for protein in proteins:
-        if len(protein['df']) < train_size:
-            continue
-        train, _ = split_data(protein, train_size, n_sites=n_sites)
-        raw_data = pd.read_csv(f'{raw_dir}/{protein["name"]}.csv', index_col='mutant')
-        
-        best = float('-inf')
-        for name in candidates:
-            predicts = raw_data.loc[train.index, name]
-            score = compute_scores(predicts['df'].to_list(),
-                                   train['df']['DMS_score'].to_list(),
-                                   train['df']['DMS_score_bin'].to_list())[metric]
-            if score > best:
-                selected = name
-                best = score
-        results[protein['name']] = selected
-    return results

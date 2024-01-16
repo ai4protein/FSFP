@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Aug  4 16:11:25 2023
-
-@author: User
-"""
-
 import random
 import math
 import torch
@@ -138,10 +131,10 @@ class MetaRankingSequenceData(Dataset):
                                             device=device)
             else:
                 query = constructor(query, tokenizer, mask=mask in {'eval', 'all'}, device=device)
-            query_iters = DataLoader(query,
+            query_iter = DataLoader(query,
                                      batch_size=eval_batch_size,
                                      collate_fn=query.collate)
-            self.query_iters.append(query_iters)
+            self.query_iters.append(query_iter)
         
     def __len__(self):
         return len(self.query_iters)

@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Sep  4 16:36:45 2023
-
-@author: User
-"""
-
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 from torch.nn.functional import pairwise_distance
