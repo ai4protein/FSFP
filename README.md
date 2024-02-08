@@ -2,6 +2,8 @@
 Supported PLMs: **ESM-1b, ESM-1v, ESM-2, and SaProt**
 
 ## Requirements
+### Software
+The code has been tested on Windows 10 and Ubuntu 22.04.3 LTS, with Anaconda3. The package dependencies are listed as follows:
 ```
 cudatoolkit 11.8.0
 learn2learn 0.2.0
@@ -14,6 +16,14 @@ scikit-learn 1.3.0
 tqdm 4.65.0
 transformers 4.29.2
 ```
+### Hardware
+The code has been tested on RTX 3090 GPU.
+### Installation
+- Install transformers and peft according to [HuggingFace](https://huggingface.co/docs)
+- Install the gpu version of pytorch according to [Pytorch](https://pytorch.org/get-started/locally/)
+- Install learn2learn according to [learn2learn](https://learn2learn.net/tutorials/getting_started/)
+- Other packages can be easily installed by `conda install xxx`
+- The installation should finish in 10-20 minutes.
 
 ## Config file
 The config file `fsfp/config.json` defines the paths of model checkpoints, input and output.
@@ -52,14 +62,15 @@ Important hyper-parmeters are listed as follows (abbreviations in parentheses):
 - --cross_validation (-cv): number of splits for cross validation (shuffle & split) on the training set
 - --force_cpu (-cpu): use cpu for training and evaluation even if gpu is available
 
-### Examples
+### Demo
 - Use LTR and LoRA to train PLMs for specific protein (SYUA_HUMAN for example) without meta-learning: <br>
-`python main.py -md esm2 -m finetune -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -p SYUA_HUMAN`. The trained model is saved to `checkpoints/`.
+`python main.py -md esm2 -m finetune -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -p SYUA_HUMAN`. This may take several minitues, and the trained model will be saved to `checkpoints/finetune`.
 - Test the trained model, print results, and save predictions: <br>
-`python main.py -md esm2 -m finetune -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -p SYUA_HUMAN -t`. The predictions are saved to `predictions/`.
+`python main.py -md esm2 -m finetune -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -p SYUA_HUMAN -t`. This may take a few seconds, and the predictions will be saved to `predictions/`.
 - Meta-train PLMs on the auxiliary tasks: <br>
-`python main.py -md esm2 -m meta -ts 40 -tb 1 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN`
+`python main.py -md esm2 -m meta -ts 40 -tb 1 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN`. This may take 10-20 minitues, and the trained model will be saved to `checkpoints/meta`.
 - Transfer the meta-trained model to the target task: <br>
-`python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN`
+`python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN`. This may take several minitues, and the trained model will be saved to `checkpoints/meta-transfer`.
 - Test the trained model, print results, and save predictions: <br>
-`python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN -t`
+`python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN -t`. This may take a few seconds, and the predictions will be saved to `predictions/`.
+Other datasets can also be used as long as they have the same file format as the ones in ProteinGym and are in the correct directory.
