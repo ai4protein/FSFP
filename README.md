@@ -73,4 +73,4 @@ Important hyper-parmeters are listed as follows (abbreviations in parentheses):
 `python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN`. This may take several minitues, and the trained model will be saved to `checkpoints/meta-transfer`.
 - Test the trained model, print results, and save predictions: <br>
 `python main.py -md esm2 -m meta-transfer -ts 40 -tb 16 -r 16 -ls 5 -mi 5 -mtb 16 -meb 64 -alr 1e-3 -as 4 -a GEMME -p SYUA_HUMAN -t`. This may take a few seconds, and the predictions will be saved to `predictions/`.
-Other datasets can also be used as long as they have the same file format as the ones in ProteinGym and are in the correct directory.
+- Other datasets can also be used as long as they have the same file format as the ones in ProteinGym and are in the correct directory.
